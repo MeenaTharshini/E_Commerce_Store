@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seller Dashboard | Seller Hub</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f7fbff;
+    color:#1e293b;
+    padding-bottom:90px;
+}
+
+/* HERO */
+.hero{
+    background:linear-gradient(135deg,#4facfe,#00f2fe);
+    padding:50px 20px;
+    color:white;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:38px;
+}
+
+.hero p{
+    opacity:0.9;
+    margin-top:5px;
+}
+
+/* STATS */
+.stats{
+    width:95%;
+    margin:20px auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+}
+
+.stat{
+    background:white;
+    padding:18px;
+    border-radius:16px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.stat h3{
+    font-size:13px;
+    color:#64748b;
+}
+
+.stat h2{
+    margin-top:10px;
+    color:#4facfe;
+}
+
+/* PRODUCTS */
+.section-title{
+    width:95%;
+    margin:20px auto;
+    font-size:18px;
+}
+
+.grid{
+    width:95%;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+}
+
+.card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.content{
+    padding:15px;
+}
+
+.price{
+    font-size:22px;
+    font-weight:700;
+    color:#16a34a;
+    margin-top:8px;
+}
+
+.badge{
+    position:absolute;
+    margin:10px;
+    background:#ef4444;
+    color:white;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+}
+
+/* ORDERS SECTION */
+#orders{
+    width:95%;
+    margin:40px auto 10px;
+}
+
+table{
+    width:95%;
+    margin:10px auto 40px;
+    border-collapse:collapse;
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+th{
+    background:#0f172a;
+    color:white;
+    padding:12px;
+    font-size:13px;
+}
+
+td{
+    padding:12px;
+    border-bottom:1px solid #eee;
+    font-size:14px;
+}
+
+.status{
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+    color:white;
+}
+
+.confirmed{background:#4facfe;}
+.shipped{background:#7c3aed;}
+.delivered{background:#22c55e;}
+.pending{background:#f59e0b;}
+
+/* BOTTOM NAV */
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:70px;
+    background:white;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    box-shadow:0 -5px 20px rgba(0,0,0,.08);
+    z-index:999;
+}
+
+.bottom-nav a{
+    text-decoration:none;
+    color:#64748b;
+    font-size:12px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    transition:0.3s;
+}
+
+.bottom-nav a:hover{
+    color:#4facfe;
+}
+.actions{
+    display:flex;
+    gap:8px;
+    margin-top:12px;
+}
+
+.actions a{
+    flex:1;
+    text-align:center;
+    padding:8px;
+    border-radius:10px;
+    color:white;
+    font-size:12px;
+    text-decoration:none;
+}
+
+.edit{background:#2563eb;}
+.delete{background:#ef4444;}
+.stock{background:#f59e0b;}
+
+/* TABLE IMPROVEMENT */
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+th{
+    background:#0f172a;
+    color:white;
+    padding:14px;
+    font-size:13px;
+}
+
+td{
+    padding:14px;
+    border-bottom:1px solid #eee;
+    font-size:14px;
+}
+
+/* STATUS PILL */
+.status{
+    padding:5px 12px;
+    border-radius:20px;
+    font-size:12px;
+    color:white;
+    display:inline-block;
+}
+
+.confirmed{background:#3b82f6;}
+.shipped{background:#7c3aed;}
+.delivered{background:#22c55e;}
+.pending{background:#f59e0b;}
+
+/* BUTTON GROUP */
+.btn-group{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+}
+
+/* BUTTONS */
+.btn{
+    text-decoration:none;
+    padding:6px 10px;
+    border-radius:8px;
+    font-size:12px;
+    font-weight:600;
+    color:white;
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:scale(1.05);
+}
+
+.confirm{background:#3b82f6;}
+.ship{background:#7c3aed;}
+.deliver{background:#22c55e;}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<div class="hero">
+    <h1>Seller Dashboard</h1>
+    <p>Manage products, orders & grow your business</p>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+    <div class="stat">
+        <h3>Total Products</h3>
+        <h2>{{ total_products }}</h2>
+    </div>
+
+    <div class="stat">
+        <h3>Total Orders</h3>
+        <h2>{{ total_orders }}</h2>
+    </div>
+
+    <div class="stat">
+        <h3>Low Stock</h3>
+        <h2>{{ low_stock }}</h2>
+    </div>
+
+    <div class="stat">
+        <h3>Total Sales</h3>
+        <h2>₹ {{ total_sales }}</h2>
+    </div>
+</div>
+
+<!-- PRODUCTS -->
+<h2 class="section-title">📦 Products</h2>
+
+<div class="grid">
+
+{% for p in products %}
+<div class="card">
+
+{% if p.discount > 0 %}
+<div class="badge">{{ p.discount }}% OFF</div>
+{% endif %}
+
+<img src="{{ url_for('static', filename='uploads/' ~ p.image) if p.image else url_for('static', filename='uploads/default.png') }}">
+
+<div class="content">
+    <h3>{{ p.name }}</h3>
+    <p style="color:#64748b;font-size:13px;">
+        {{ p.description[:60] }}
+    </p>
+
+    <div class="price">
+        ₹ {{ "%.2f"|format(p.price - (p.price * p.discount / 100)) }}
+    </div>
+
+    <p style="font-size:13px;color:#16a34a;">
+        {{ p.stock_status }}
+    </p>
+    <div class="actions">
+    <a href="/change_stock/{{p.id}}" class="stock">Toggle Stock</a>
+    <a href="/edit_product/{{p.id}}" class="edit">Edit</a>
+    <a href="/delete_product/{{p.id}}" class="delete">Delete</a>
+</div>
+</div>
+
+</div>
+{% endfor %}
+
+</div>
+
+<!-- ORDERS SECTION -->
+<h2 id="orders" class="section-title">🧾 Orders</h2>
+
+<div style="width:95%;margin:auto;overflow-x:auto;">
+
+<table>
+
+<tr>
+<th>Customer</th>
+<th>Product</th>
+<th>Qty</th>
+<th>Status</th>
+<th>Actions</th>
+</tr>
+
+{% for o in orders %}
+
+<tr>
+
+<td>{{ o.username }}</td>
+<td>{{ o.product_name }}</td>
+<td>{{ o.quantity }}</td>
+
+<td>
+    <span class="status {{ o.status|lower }}">
+        {{ o.status }}
+    </span>
+</td>
+
+<td>
+
+<div class="btn-group">
+
+    <!-- CONFIRM -->
+    <a href="/update_status/{{o.id}}/Confirmed"
+       class="btn confirm">
+       ✔ Confirm
+    </a>
+
+    <!-- SHIP -->
+    <a href="/update_status/{{o.id}}/Shipped"
+       class="btn ship">
+       🚚 Ship
+    </a>
+
+    <!-- DELIVER -->
+    <a href="/update_status/{{o.id}}/Delivered"
+       class="btn deliver">
+       📦 Deliver
+    </a>
+
+</div>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+    <a href="#orders">🧾<span>Orders</span></a>
+    <a href="/analytics">📊<span>Analytics</span></a>
+    <a href="/add_product">➕<span>Add</span></a>
+    <a href="/reviews">⭐<span>Reviews</span></a>
+    <a href="/provider_profile">👤<span>Profile</span></a>
+</div>
+
+</body>
+</html>

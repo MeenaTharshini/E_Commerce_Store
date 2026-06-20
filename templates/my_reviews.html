@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SMIS STORES | My Reviews</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f6f8fc;
+    padding-bottom:100px;
+}
+
+/* HEADER */
+
+.header{
+    background:linear-gradient(135deg,#4facfe,#00f2fe);
+    color:white;
+    text-align:center;
+    padding:60px 20px;
+}
+
+.header h1{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.header p{
+    font-size:16px;
+}
+
+/* CONTAINER */
+
+.review-container{
+    width:95%;
+    max-width:1000px;
+    margin:30px auto;
+}
+
+/* CARD */
+
+.review-card{
+    background:white;
+    border-radius:22px;
+    padding:20px;
+    margin-bottom:20px;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.review-card:hover{
+    transform:translateY(-3px);
+}
+
+.review-top{
+    display:flex;
+    gap:20px;
+    align-items:flex-start;
+}
+
+/* PRODUCT IMAGE */
+
+.product-image{
+    width:120px;
+    height:120px;
+    object-fit:contain;
+    border-radius:16px;
+    background:#f8fafc;
+    border:1px solid #e2e8f0;
+    padding:10px;
+    flex-shrink:0;
+}
+
+/* DETAILS */
+
+.review-details{
+    flex:1;
+}
+
+.product-name{
+    font-size:20px;
+    font-weight:600;
+    color:#0f172a;
+    margin-bottom:8px;
+}
+
+.review-date{
+    color:#64748b;
+    font-size:13px;
+    margin-bottom:10px;
+}
+
+.rating{
+    font-size:18px;
+    margin-bottom:12px;
+}
+
+.review-text{
+    color:#475569;
+    line-height:1.7;
+    font-size:15px;
+}
+
+/* REVIEW IMAGE */
+
+.user-review-image{
+    width:180px;
+    height:180px;
+    object-fit:cover;
+    border-radius:14px;
+    margin-top:15px;
+    border:1px solid #e2e8f0;
+}
+
+/* BUTTON */
+
+.product-btn{
+    display:inline-block;
+    margin-top:15px;
+    padding:10px 18px;
+    border-radius:10px;
+    text-decoration:none;
+    background:#4facfe;
+    color:white;
+    font-weight:600;
+}
+
+/* EMPTY */
+
+.empty{
+    background:white;
+    padding:60px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.empty h2{
+    margin-bottom:10px;
+}
+
+.empty p{
+    color:#64748b;
+}
+
+/* MOBILE */
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+/* Large Tablets */
+@media (max-width: 992px){
+
+    .orders,
+    .review-container{
+        width:95%;
+    }
+
+    .hero h1,
+    .header h1{
+        font-size:38px;
+    }
+
+    .hero p,
+    .header p{
+        font-size:16px;
+    }
+
+    .order-card,
+    .review-top,
+    .product-preview{
+        gap:15px;
+    }
+}
+
+/* Mobile Devices */
+@media (max-width:768px){
+
+    body{
+        padding-bottom:90px;
+    }
+
+    .hero,
+    .header{
+        padding:45px 15px;
+    }
+
+    .hero h1,
+    .header h1{
+        font-size:28px;
+    }
+
+    .hero p,
+    .header p{
+        font-size:14px;
+    }
+
+    .logo{
+        font-size:24px;
+    }
+
+    /* Orders */
+
+    .orders{
+        width:95%;
+        gap:15px;
+    }
+
+    .order-card{
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+        padding:15px;
+    }
+
+    .product-image{
+        width:100px;
+        height:100px;
+    }
+
+    .order-details{
+        width:100%;
+    }
+
+    .order-details h3{
+        font-size:17px;
+    }
+
+    .order-details p{
+        font-size:13px;
+    }
+
+    .actions{
+        grid-template-columns:1fr;
+    }
+
+    .action-btn{
+        width:100%;
+    }
+
+    /* Reviews */
+
+    .review-top,
+    .product-preview{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .review-details{
+        width:100%;
+    }
+
+    .product-name{
+        font-size:18px;
+    }
+
+    .user-review-image{
+        width:100%;
+        max-width:250px;
+        height:auto;
+    }
+
+    .review-card,
+    .review-card{
+        padding:15px;
+    }
+
+    /* Forms */
+
+    .review-card form{
+        width:100%;
+    }
+
+    select,
+    textarea,
+    input[type="file"]{
+        font-size:14px;
+    }
+
+    textarea{
+        min-height:120px;
+    }
+
+    .button-group{
+        flex-direction:column;
+    }
+
+    .btn{
+        width:100%;
+    }
+
+    /* Empty State */
+
+    .empty{
+        padding:35px 20px;
+    }
+
+}
+
+/* Small Phones */
+@media (max-width:480px){
+
+    .hero h1,
+    .header h1{
+        font-size:24px;
+    }
+
+    .hero p,
+    .header p{
+        font-size:13px;
+    }
+
+    .product-image{
+        width:85px;
+        height:85px;
+    }
+
+    .product-name{
+        font-size:16px;
+    }
+
+    .order-details h3{
+        font-size:15px;
+    }
+
+    .action-btn{
+        font-size:13px;
+        padding:10px;
+    }
+
+    .status{
+        font-size:11px;
+        padding:6px 12px;
+    }
+
+    .review-text{
+        font-size:14px;
+    }
+
+    .user-review-image{
+        max-width:100%;
+    }
+}
+@media(max-width:768px){
+
+    .review-top{
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+    }
+
+    .product-image{
+        width:100px;
+        height:100px;
+    }
+
+    .product-name{
+        font-size:18px;
+    }
+
+    .user-review-image{
+        width:100%;
+        height:auto;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>⭐ My Reviews</h1>
+    <p>All the products you've reviewed</p>
+</div>
+
+<div class="review-container">
+
+{% if reviews %}
+
+    {% for review in reviews %}
+
+    <div class="review-card">
+
+        <div class="review-top">
+
+            <!-- PRODUCT IMAGE -->
+
+            {% if review.product_image %}
+            <img
+            src="{{ url_for('static', filename='uploads/' + review.product_image) }}"
+            class="product-image">
+            {% else %}
+            <img
+            src="https://picsum.photos/300/300?random={{ review.id }}"
+            class="product-image">
+            {% endif %}
+
+            <div class="review-details">
+
+                <div class="product-name">
+                    {{ review.product_name }}
+                </div>
+
+                <div class="review-date">
+                    📅 {{ review.created_at }}
+                </div>
+
+                <div class="rating">
+                    {% for i in range(review.rating) %}
+                        ⭐
+                    {% endfor %}
+                </div>
+
+                <div class="review-text">
+                    {{ review.comment }}
+                </div>
+
+                {% if review.image %}
+                <img
+                src="{{ url_for('static', filename='reviews/' + review.image) }}"
+                class="user-review-image">
+                {% endif %}
+
+                <br>
+
+                <a
+                href="/product/{{ review.product_id }}"
+                class="product-btn">
+                    View Product
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+
+    <div class="empty">
+        <h2>⭐ No Reviews Yet</h2>
+        <p>You haven't reviewed any products.</p>
+    </div>
+
+{% endif %}
+
+</div>
+
+{% include 'navbar_bottom.html' %}
+
+</body>
+</html>

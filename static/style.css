@@ -1,0 +1,64 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #0f1115;
+    color: white;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+/* PRODUCT GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 30px;
+}
+
+/* GLASS CARD */
+.card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 20px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* BUTTON */
+button {
+    background: linear-gradient(90deg, #ff4d6d, #ff8fa3);
+    border: none;
+    padding: 10px;
+    color: white;
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* CART */
+.cart {
+    padding: 20px;
+}
+
+/* STATUS BADGES */
+.badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.paid { background: #00c896; }
+.cod { background: #ffb703; }
+.shipped { background: #4cc9f0; }
+.delivered { background: #9d4edd; }

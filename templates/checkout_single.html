@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout | Minu Store</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f7fbff;
+    color:#1e293b;
+}
+
+/* HERO (same style as products page) */
+.hero{
+    background:linear-gradient(135deg,#4facfe,#00f2fe);
+    padding:70px 20px;
+    text-align:center;
+    color:white;
+}
+
+.hero h1{
+    font-size:42px;
+}
+
+.hero p{
+    font-size:16px;
+}
+
+/* checkout container */
+.checkout-container{
+    width:90%;
+    max-width:900px;
+    margin:40px auto;
+    background:white;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    display:flex;
+    gap:20px;
+    padding:20px;
+}
+
+/* product box */
+.product-box{
+    flex:1;
+}
+
+.product-box img{
+    width:100%;
+    height:300px;
+    object-fit:cover;
+    border-radius:15px;
+}
+
+.product-name{
+    font-size:22px;
+    font-weight:600;
+    margin-top:15px;
+}
+
+.price{
+    font-size:26px;
+    color:#16a34a;
+    font-weight:700;
+    margin-top:10px;
+}
+
+/* payment box */
+.payment-box{
+    flex:1;
+    padding:10px;
+}
+
+.payment-box h3{
+    margin-bottom:15px;
+}
+
+.total{
+    font-size:24px;
+    font-weight:700;
+    margin:15px 0;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    font-weight:600;
+    font-size:16px;
+    cursor:pointer;
+    background:linear-gradient(135deg,#4facfe,#00f2fe);
+    color:white;
+}
+
+button:hover{
+    opacity:0.9;
+}
+
+/* mobile */
+@media(max-width:768px){
+    .checkout-container{
+        flex-direction:column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+    <h1>Checkout</h1>
+    <p>Complete your purchase securely</p>
+</section>
+{% set selling_price = product.price - (product.price * product.discount / 100) %}
+<div class="checkout-container">
+
+    <!-- PRODUCT -->
+    <div class="product-box">
+        {% if product.image %}
+        <img src="{{ url_for('static', filename='uploads/' + product.image) }}">
+        {% else %}
+        <img src="https://picsum.photos/500/500">
+        {% endif %}
+
+        <div class="product-name">{{ product.name }}</div>
+
+        <div class="price">
+
+    {% if product.discount > 0 %}
+
+        ₹ {{ "%.2f"|format(selling_price) }}
+
+        <span style="text-decoration:line-through;color:#94a3b8;font-size:16px;margin-left:8px;">
+            ₹ {{ "%.2f"|format(product.price) }}
+        </span>
+
+    {% else %}
+
+        ₹ {{ "%.2f"|format(product.price) }}
+
+    {% endif %}
+
+</div>
+        <p style="margin-top:10px;color:#64748b;">
+            {{ product.description }}
+        </p>
+    </div>
+
+    <!-- PAYMENT -->
+    <div class="payment-box">
+
+        <h3>Payment Options</h3>
+
+
+<div class="total">
+    Total: ₹ {{ "%.2f"|format(selling_price * 1) }}
+</div>
+
+        <form method="POST" action="/payment_single">
+            <label>
+                <input type="radio" name="payment_method" value="cod" required>
+                Cash on Delivery
+            </label>
+            <br><br>
+            <label>
+                <input type="radio" name="payment_method" value="online" required>
+                Online Payment
+            </label>
+
+            <br><br>
+
+            <button type="submit">Place Order</button>
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

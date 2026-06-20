@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Add Product | Seller Hub</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f7fbff;
+    color:#1e293b;
+    padding-bottom:90px;
+}
+
+/* HERO (MATCH DASHBOARD STYLE) */
+.hero{
+    background:linear-gradient(135deg,#4facfe,#00f2fe);
+    padding:45px 20px;
+    color:white;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.hero h1{
+    font-size:34px;
+}
+
+.hero p{
+    opacity:0.9;
+    margin-top:5px;
+}
+
+/* CONTAINER */
+.container{
+    width:95%;
+    max-width:1000px;
+    margin:30px auto;
+}
+
+/* FORM CARD (MATCH DASHBOARD CARD STYLE) */
+.form-card{
+    background:white;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    transition:0.3s;
+}
+
+.form-card:hover{
+    transform:translateY(-3px);
+}
+
+/* GRID */
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.form-group.full{
+    grid-column:1/3;
+}
+
+/* INPUTS */
+label{
+    font-size:13px;
+    color:#64748b;
+    font-weight:500;
+    margin-bottom:6px;
+    display:block;
+}
+
+input, textarea, select{
+    width:100%;
+    padding:12px;
+    border:1px solid #e2e8f0;
+    border-radius:12px;
+    font-size:14px;
+    outline:none;
+    transition:0.3s;
+    background:#fff;
+}
+
+input:focus, textarea:focus, select:focus{
+    border-color:#4facfe;
+    box-shadow:0 0 0 4px rgba(79,172,254,0.15);
+}
+
+textarea{
+    min-height:120px;
+    resize:none;
+}
+
+/* FILE INPUT */
+.file-box{
+    border:2px dashed #cbd5e1;
+    padding:20px;
+    border-radius:14px;
+    text-align:center;
+    color:#64748b;
+}
+
+/* BUTTONS */
+.btn-group{
+    margin-top:20px;
+    display:flex;
+    gap:12px;
+}
+
+.btn{
+    padding:12px 18px;
+    border-radius:12px;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    transition:0.3s;
+    border:none;
+    cursor:pointer;
+}
+
+.btn-primary{
+    background:linear-gradient(135deg,#4facfe,#00f2fe);
+    color:white;
+}
+
+.btn-primary:hover{
+    transform:translateY(-2px);
+}
+
+.btn-secondary{
+    background:#e2e8f0;
+    color:#334155;
+}
+
+.btn-secondary:hover{
+    background:#cbd5e1;
+}
+
+/* LIVE PRICE BOX */
+.price-box{
+    background:#f0f9ff;
+    border:1px solid #bae6fd;
+    padding:10px;
+    border-radius:12px;
+    color:#0369a1;
+    font-weight:600;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+    .form-group.full{
+        grid-column:auto;
+    }
+}
+
+/* =========================
+   BOTTOM NAV (MATCH DASHBOARD)
+========================= */
+
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:70px;
+    background:white;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    box-shadow:0 -5px 20px rgba(0,0,0,.08);
+    z-index:999;
+}
+
+.bottom-nav a{
+    text-decoration:none;
+    color:#64748b;
+    font-size:12px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    transition:0.3s;
+}
+
+.bottom-nav a span{
+    font-size:18px;
+    margin-bottom:2px;
+}
+
+.bottom-nav a:hover{
+    color:#4facfe;
+}
+
+.bottom-nav .active{
+    color:#4facfe;
+    font-weight:600;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<div class="hero">
+    <h1>➕ Add New Product</h1>
+    <p>Create and manage your product listings easily</p>
+</div>
+
+<div class="container">
+
+    <div class="form-card">
+
+        <form method="POST" enctype="multipart/form-data">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Price (₹)</label>
+                    <input type="number" name="price" id="price" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Discount (%)</label>
+                    <input type="number" name="discount" id="discount" value="0">
+                </div>
+
+                <div class="form-group">
+                    <label>Stock Status</label>
+                    <select name="stock_status">
+                        <option>In Stock</option>
+                        <option>Out of Stock</option>
+                    </select>
+                </div>
+
+                <div class="form-group full">
+                    <label>Description</label>
+                    <textarea name="description"></textarea>
+                </div>
+
+                <div class="form-group full">
+                    <label>Product Image</label>
+                    <input type="file" name="image">
+                </div>
+
+                <div class="form-group full">
+                    <label>Selling Price (Auto)</label>
+                    <div class="price-box" id="selling_price">₹ 0.00</div>
+                </div>
+
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-primary" type="submit">🚀 Add Product</button>
+                <a href="/provider_dashboard" class="btn btn-secondary">Cancel</a>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+
+    <a href="/provider_dashboard">
+        <span>🏠</span>
+        Home
+    </a>
+
+    <a href="/analytics">
+        <span>📊</span>
+        Stats
+    </a>
+
+    <a href="/add_product" class="active">
+        <span>➕</span>
+        Add
+    </a>
+
+    <a href="/reviews">
+        <span>⭐</span>
+        Reviews
+    </a>
+
+    <a href="/provider_profile">
+        <span>👤</span>
+        Profile
+    </a>
+
+</div>
+
+<script>
+
+const price = document.getElementById("price");
+const discount = document.getElementById("discount");
+const selling = document.getElementById("selling_price");
+
+function calc(){
+    let p = parseFloat(price.value) || 0;
+    let d = parseFloat(discount.value) || 0;
+
+    let final = p - (p * d / 100);
+
+    selling.innerText = "₹ " + final.toFixed(2);
+}
+
+price.addEventListener("input", calc);
+discount.addEventListener("input", calc);
+
+calc();
+
+</script>
+
+</body>
+</html>

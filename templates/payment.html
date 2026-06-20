@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Payment</title>
+
+<style>
+body{
+    font-family:Arial;
+    background:#f4f6f9;
+}
+
+.container{
+    width:500px;
+    margin:50px auto;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+h1{
+    text-align:center;
+}
+
+.amount{
+    text-align:center;
+    color:green;
+    font-size:24px;
+    margin-bottom:20px;
+}
+
+select, input{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#28a745;
+    color:white;
+    border:none;
+    border-radius:5px;
+}
+
+button:hover{
+    background:#1e7e34;
+}
+
+.hidden{
+    display:none;
+}
+</style>
+
+<script>
+function togglePayment() {
+    let method = document.getElementById("method").value;
+    let onlineBox = document.getElementById("onlineBox");
+
+    if(method === "online"){
+        onlineBox.style.display = "block";
+    } else {
+        onlineBox.style.display = "none";
+    }
+}
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Payment</h1>
+
+<div class="amount">
+Pay ₹ {{ total }}
+</div>
+
+<form method="POST">
+
+<label>Select Payment Method</label>
+<select name="payment_method" id="method" onchange="togglePayment()" required>
+    <option value="">Choose</option>
+    <option value="cod">Cash on Delivery</option>
+    <option value="online">Online Payment</option>
+</select>
+
+<!-- ONLINE PAYMENT SECTION -->
+<div id="onlineBox" class="hidden">
+
+    <input type="text" name="card_name" placeholder="Card Holder Name">
+    <input type="text" name="card_number" placeholder="Card Number">
+    <input type="text" name="expiry" placeholder="MM/YY">
+    <input type="password" name="cvv" placeholder="CVV">
+
+</div>
+
+<button type="submit">Place Order</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

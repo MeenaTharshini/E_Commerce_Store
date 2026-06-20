@@ -1,0 +1,87 @@
+<!-- Bottom Navigation -->
+<div class="bottom-nav">
+
+    <a href="/products"
+       class="nav-item {% if request.path == '/products' %}active{% endif %}">
+        <span>🛍️</span>
+        <small>Shop</small>
+    </a>
+
+    <a href="/cart"
+       class="nav-item {% if request.path == '/cart' %}active{% endif %}">
+        <span>🛒</span>
+        <small>Cart</small>
+    </a>
+
+    <a href="/orders"
+       class="nav-item {% if request.path == '/orders' %}active{% endif %}">
+        <span>📦</span>
+        <small>Orders</small>
+    </a>
+
+    <a href="/my_reviews"
+       class="nav-item {% if request.path == '/my_reviews' %}active{% endif %}">
+        <span>⭐</span>
+        <small>Reviews</small>
+    </a>
+
+    <a href="/profile"
+       class="nav-item {% if request.path == '/profile' %}active{% endif %}">
+        <span>👤</span>
+        <small>Profile</small>
+    </a>
+
+</div>
+
+<style>
+
+.bottom-nav{
+    position:fixed;
+    bottom:12px;
+    left:50%;
+    transform:translateX(-50%);
+    width:95%;
+    max-width:550px;
+    height:68px;
+    background:rgba(255,255,255,.95);
+    backdrop-filter:blur(15px);
+    border-radius:22px;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    box-shadow:0 8px 25px rgba(0,0,0,.12);
+    z-index:9999;
+}
+
+.nav-item{
+    text-decoration:none;
+    color:#64748b;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2px;
+    font-size:11px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.nav-item span{
+    font-size:22px;
+}
+
+.nav-item:hover,
+.nav-item.active{
+    color:#4facfe;
+    transform:translateY(-3px);
+}
+
+body{
+    padding-bottom:100px;
+}
+
+@media(min-width:992px){
+    .bottom-nav{
+        display:none;
+    }
+}
+</style>

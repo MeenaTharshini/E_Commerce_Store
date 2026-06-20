@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SMIS STORES | My Orders</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f6f8fc;
+    color:#1e293b;
+    padding-bottom:100px;
+}
+
+/* HERO */
+
+.hero{
+    background:linear-gradient(135deg,#4facfe,#00f2fe);
+    padding:70px 20px;
+    text-align:center;
+    color:white;
+}
+
+.logo{
+    font-size:30px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.hero h1{
+    font-size:48px;
+    margin-bottom:10px;
+}
+
+.hero p{
+    font-size:18px;
+}
+
+/* ORDERS CONTAINER */
+
+.orders{
+    width:95%;
+    max-width:1200px;
+    margin:30px auto;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+/* ORDER CARD */
+
+.order-card{
+    background:white;
+    border-radius:20px;
+    padding:18px;
+    display:flex;
+    gap:18px;
+    align-items:flex-start;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.order-card:hover{
+    transform:translateY(-3px);
+}
+
+/* PRODUCT IMAGE */
+
+.product-link{
+    text-decoration:none;
+    flex-shrink:0;
+}
+
+.product-image{
+    width:120px;
+    height:120px;
+    object-fit:contain;
+    background:#f8fafc;
+    border-radius:16px;
+    padding:10px;
+    border:1px solid #e2e8f0;
+    transition:.3s;
+}
+
+.product-image:hover{
+    transform:scale(1.05);
+}
+
+/* DETAILS */
+
+.order-details{
+    flex:1;
+}
+
+.order-details h3{
+    font-size:20px;
+    margin-bottom:10px;
+    color:#0f172a;
+}
+
+.order-details p{
+    margin-bottom:6px;
+    color:#64748b;
+    font-size:14px;
+}
+
+/* STATUS */
+
+.status{
+    display:inline-block;
+    margin-top:10px;
+    padding:7px 14px;
+    border-radius:25px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.confirmed{
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+
+.shipped{
+    background:#ede9fe;
+    color:#7c3aed;
+}
+
+.delivered{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+.other{
+    background:#fef3c7;
+    color:#d97706;
+}
+
+/* ACTION BUTTONS */
+
+.actions{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin-top:15px;
+}
+
+.action-btn{
+    text-decoration:none;
+    text-align:center;
+    padding:10px;
+    border-radius:10px;
+    color:white;
+    font-size:14px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.action-btn:hover{
+    transform:translateY(-2px);
+}
+
+.dark{
+    background:#0f172a;
+}
+
+.purple{
+    background:#7c3aed;
+}
+
+.blue{
+    background:#4facfe;
+}
+
+.green{
+    background:#16a34a;
+}
+
+/* EMPTY ORDERS */
+
+.empty{
+    width:90%;
+    max-width:700px;
+    margin:60px auto;
+    background:white;
+    padding:60px;
+    text-align:center;
+    border-radius:24px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.empty h2{
+    margin-bottom:10px;
+}
+
+.empty p{
+    color:#64748b;
+}
+
+.shop{
+    display:inline-block;
+    margin-top:20px;
+    padding:14px 25px;
+    border-radius:12px;
+    background:linear-gradient(135deg,#4facfe,#00f2fe);
+    color:white;
+    text-decoration:none;
+    font-weight:600;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .hero h1{
+        font-size:34px;
+    }
+
+    .hero p{
+        font-size:15px;
+    }
+
+    .order-card{
+        flex-direction:row;
+        gap:12px;
+        padding:14px;
+    }
+
+    .product-image{
+        width:90px;
+        height:90px;
+    }
+
+    .order-details h3{
+        font-size:16px;
+    }
+
+    .order-details p{
+        font-size:12px;
+    }
+
+    .actions{
+        grid-template-columns:1fr 1fr;
+        gap:8px;
+    }
+
+    .action-btn{
+        padding:9px;
+        font-size:12px;
+    }
+}
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .hero h1{
+        font-size:34px;
+    }
+
+    .orders{
+        width:92%;
+        grid-template-columns:1fr;
+    }
+
+    .actions{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+<div class="logo">SMIS STORES</div>
+<h1>Premium Collection</h1>
+<p>Track deliveries, invoices and reviews.</p>
+</section>
+
+
+</section>
+{% if orders %}
+
+<div class="orders">
+
+    {% for order in orders %}
+
+    <div class="order-card">
+
+        <a href="/product/{{ order.product_id }}" class="product-link">
+
+            {% if order.image %}
+            <img
+            src="{{ url_for('static', filename='uploads/' + order.image) }}"
+            class="product-image">
+            {% else %}
+            <img
+            src="https://picsum.photos/300/300?random={{ order.id }}"
+            class="product-image">
+            {% endif %}
+
+        </a>
+
+        <div class="order-details">
+
+            <h3>{{ order.product_name }}</h3>
+
+            <p>Order #{{ order.id }}</p>
+
+            <p>Qty: {{ order.quantity }}</p>
+
+            <p>Payment: {{ order.payment_method }}</p>
+
+            <p>Delivery: {{ order.delivery_date }}</p>
+
+            {% if order.status == "Confirmed" %}
+                <span class="status confirmed">Confirmed</span>
+
+            {% elif order.status == "Shipped" %}
+                <span class="status shipped">Shipped</span>
+
+            {% elif order.status == "Delivered" %}
+                <span class="status delivered">Delivered</span>
+
+            {% else %}
+                <span class="status other">{{ order.status }}</span>
+            {% endif %}
+
+            <div class="actions">
+
+                {% if order.status == "Delivered" %}
+                <a href="/add_review/{{ order.id }}"
+class="action-btn green">
+⭐ Review
+</a>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="empty">
+
+    <h2>📦 No Orders Yet</h2>
+
+    <p>Looks like you haven't purchased anything.</p>
+
+    <a href="/products" class="shop">
+        Start Shopping
+    </a>
+
+</div>
+
+{% endif %}
+
+{% include 'navbar_bottom.html' %}
+
+</body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Edit Product | Seller Hub</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --primary:#4facfe;
+    --primary2:#00f2fe;
+    --bg:#f7fbff;
+    --card:#ffffff;
+    --text:#1e293b;
+    --muted:#64748b;
+    --danger:#ef4444;
+    --success:#22c55e;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:var(--bg);
+    padding-bottom:90px;
+}
+
+/* HERO (same dashboard style) */
+.hero{
+    background:linear-gradient(135deg,var(--primary),var(--primary2));
+    color:white;
+    padding:50px 20px;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:34px;
+}
+
+.hero p{
+    opacity:0.9;
+    margin-top:6px;
+}
+
+/* CONTAINER */
+.container{
+    width:95%;
+    max-width:1000px;
+    margin:30px auto;
+}
+
+/* CARD */
+.card{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.full{
+    grid-column:1 / -1;
+}
+
+/* INPUTS */
+label{
+    font-size:14px;
+    color:var(--muted);
+    margin-bottom:6px;
+    display:block;
+}
+
+input,textarea,select{
+    width:100%;
+    padding:12px;
+    border-radius:12px;
+    border:1px solid #e2e8f0;
+    outline:none;
+    transition:0.3s;
+    font-size:14px;
+}
+
+input:focus,textarea:focus,select:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 3px rgba(79,172,254,0.2);
+}
+
+textarea{
+    min-height:120px;
+    resize:none;
+}
+
+/* IMAGE */
+.image-box{
+    border:2px dashed #cbd5e1;
+    border-radius:15px;
+    padding:15px;
+    text-align:center;
+}
+
+.image-box img{
+    width:200px;
+    height:200px;
+    object-fit:cover;
+    border-radius:15px;
+}
+
+/* STOCK */
+.badge{
+    display:inline-block;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    margin-top:8px;
+    color:white;
+}
+
+.in{background:var(--success);}
+.out{background:var(--danger);}
+
+/* BUTTONS */
+.btn-group{
+    display:flex;
+    gap:12px;
+    margin-top:20px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:12px 18px;
+    border-radius:12px;
+    text-decoration:none;
+    border:none;
+    cursor:pointer;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+.save{
+    background:linear-gradient(135deg,var(--primary),var(--primary2));
+    color:white;
+}
+
+.cancel{
+    background:#e2e8f0;
+    color:#334155;
+}
+
+.delete{
+    background:var(--danger);
+    color:white;
+}
+
+/* BOTTOM NAV (same dashboard) */
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:70px;
+    background:white;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    box-shadow:0 -5px 20px rgba(0,0,0,.08);
+}
+
+.bottom-nav a{
+    text-decoration:none;
+    color:#64748b;
+    font-size:12px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.bottom-nav a:hover{
+    color:var(--primary);
+}
+
+@media(max-width:768px){
+    .grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<div class="hero">
+    <h1>✏️ Edit Product</h1>
+    <p>Update product details and manage your listing</p>
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<form method="POST" enctype="multipart/form-data">
+
+<div class="grid">
+
+    <div>
+        <label>Product Name</label>
+        <input type="text" name="name" value="{{ product.name }}" required>
+    </div>
+
+    <div>
+        <label>Price (₹)</label>
+        <input type="number" id="price" name="price" value="{{ product.price }}" required>
+    </div>
+
+    <div class="full">
+        <label>Description</label>
+        <textarea name="description">{{ product.description }}</textarea>
+    </div>
+
+    <div>
+        <label>Discount (%)</label>
+        <input type="number" id="discount" name="discount" value="{{ product.discount or 0 }}">
+    </div>
+
+    <div>
+        <label>Selling Price</label>
+        <input type="text" id="selling_price" readonly>
+    </div>
+
+    <div>
+        <label>Stock Status</label>
+        <select name="stock_status">
+            <option value="In Stock" {% if product.stock_status=="In Stock" %}selected{% endif %}>In Stock</option>
+            <option value="Out of Stock" {% if product.stock_status=="Out of Stock" %}selected{% endif %}>Out of Stock</option>
+        </select>
+
+        {% if product.stock_status=="In Stock" %}
+        <div class="badge in">In Stock</div>
+        {% else %}
+        <div class="badge out">Out of Stock</div>
+        {% endif %}
+    </div>
+
+    <div>
+        <label>Current Image</label>
+        <div class="image-box">
+            {% if product.image %}
+            <img src="{{ url_for('static', filename='uploads/' ~ product.image) }}">
+            {% else %}
+            No Image
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="full">
+        <label>Upload New Image</label>
+        <input type="file" name="image">
+    </div>
+
+</div>
+
+<div class="btn-group">
+
+    <button type="submit" class="btn save"> Save</button>
+
+    <a href="/provider_dashboard" class="btn cancel">Cancel</a>
+
+    <a href="/delete_product/{{ product.id }}"
+       onclick="return confirm('Delete product?')"
+       class="btn delete">
+       Delete
+    </a>
+
+</div>
+
+</form>
+
+</div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+    <a href="/provider_dashboard">🏠<span>Home</span></a>
+    <a href="/analytics">📊<span>Stats</span></a>
+    <a href="/add_product">➕<span>Add</span></a>
+    <a href="/reviews">⭐<span>Reviews</span></a>
+    <a href="/provider_profile">🚪<span>Profile</span></a>
+</div>
+
+<script>
+const price=document.getElementById("price");
+const discount=document.getElementById("discount");
+const selling=document.getElementById("selling_price");
+
+function calc(){
+    let p=parseFloat(price.value)||0;
+    let d=parseFloat(discount.value)||0;
+    selling.value="₹ "+(p-(p*d/100)).toFixed(2);
+}
+price.oninput=calc;
+discount.oninput=calc;
+calc();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SMIS STORES | Profile</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f6f8fc;
+    padding-bottom:100px;
+}
+
+/* HERO */
+
+.hero{
+    background:linear-gradient(135deg,#4facfe,#00f2fe);
+    color:white;
+    text-align:center;
+    padding:60px 20px;
+}
+
+.avatar{
+    width:110px;
+    height:110px;
+    margin:auto;
+    border-radius:50%;
+    background:white;
+    color:#4facfe;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:50px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.hero h1{
+    font-size:32px;
+}
+
+.hero p{
+    margin-top:8px;
+    opacity:.9;
+}
+
+/* CARD */
+
+.profile-card{
+    width:95%;
+    max-width:800px;
+    margin:30px auto;
+    background:white;
+    border-radius:22px;
+    padding:25px;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.info-row{
+    display:flex;
+    justify-content:space-between;
+    padding:15px 0;
+    border-bottom:1px solid #e2e8f0;
+}
+
+.label{
+    font-weight:600;
+    color:#475569;
+}
+
+.value{
+    color:#0f172a;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+    margin-top:25px;
+}
+
+.stat-box{
+    background:#f8fafc;
+    padding:20px;
+    border-radius:16px;
+    text-align:center;
+}
+
+.stat-box h2{
+    color:#4facfe;
+    font-size:30px;
+}
+
+.stat-box p{
+    color:#64748b;
+}
+
+/* ACTIONS */
+
+.actions{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-top:25px;
+}
+
+.btn{
+    text-decoration:none;
+    text-align:center;
+    padding:12px;
+    border-radius:12px;
+    color:white;
+    font-weight:600;
+}
+
+.orders{
+    background:#4facfe;
+}
+
+.reviews{
+    background:#7c3aed;
+}
+
+.products{
+    background:#16a34a;
+}
+
+.logout{
+    display:block;
+    margin-top:20px;
+    text-align:center;
+    padding:14px;
+    background:#ef4444;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+    font-weight:600;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .hero h1{
+        font-size:26px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .actions{
+        grid-template-columns:1fr;
+    }
+
+    .info-row{
+        flex-direction:column;
+        gap:5px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="hero">
+
+    <div class="avatar">
+        {{ user.fullname[0] }}
+    </div>
+
+    <h1>{{ user.fullname }}</h1>
+
+    <p>Welcome to SMIS STORES</p>
+
+</div>
+
+<div class="profile-card">
+
+    <div class="info-row">
+        <span class="label">Email</span>
+        <span class="value">{{ user.email }}</span>
+    </div>
+
+    <div class="info-row">
+        <span class="label">Phone</span>
+        <span class="value">{{ user.phone }}</span>
+    </div>
+
+    <div class="info-row">
+        <span class="label">Role</span>
+        <span class="value">{{ user.role }}</span>
+    </div>
+
+    <div class="stats">
+
+        <div class="stat-box">
+            <h2>{{ total_orders }}</h2>
+            <p>Total Orders</p>
+        </div>
+
+        <div class="stat-box">
+            <h2>{{ total_reviews }}</h2>
+            <p>Total Reviews</p>
+        </div>
+
+    </div>
+
+    <a href="/logout" class="logout">
+        🚪 Logout
+    </a>
+
+</div>
+
+{% include 'navbar_bottom.html' %}
+
+</body>
+</html>
