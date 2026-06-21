@@ -104,7 +104,7 @@ def login():
             if user.role == "provider":
                 return redirect('/provider_dashboard')
 
-            return redirect('/user/dashboard')
+            return redirect('products')
 
         return render_template('login.html', error="Invalid email or password")
 
@@ -304,9 +304,7 @@ def api_search():
     if not query:
         return {"results": []}
 
-    products = Product.query.filter_by(
-        provider_email=session["email"]
-    ).all()
+    products = Product.query.all()
     results = []
 
     for p in products:
