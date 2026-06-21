@@ -371,90 +371,11 @@ td{
 
 </div>
 
-<!-- ORDERS SECTION -->
-<h2 id="orders" class="section-title">
-    <i class="fa-solid fa-file-invoice"></i> Orders
-</h2>
-<div style="width:95%;margin:auto;overflow-x:auto;">
-
-<table>
-
-<tr>
-<th>Customer</th>
-<th>Product</th>
-<th>Qty</th>
-<th>Status</th>
-<th>Actions</th>
-</tr>
-
-{% for o in orders %}
-
-<tr>
-
-<td>{{ o.username }}</td>
-<td>{{ o.product_name }}</td>
-<td>{{ o.quantity }}</td>
-
-<td>
-    <span class="status {{ o.status|lower }}">
-        {{ o.status }}
-    </span>
-</td>
-
-<td>
-
-{% if o.status == "Placed (COD)" %}
-
-<div class="btn-group">
-    <a href="/update_status/{{o.id}}/Confirmed"
-       class="btn confirm">
-       <i class="fa-solid fa-circle-check"></i>
-       Confirm
-    </a>
-</div>
-
-{% elif o.status|lower == "confirmed" %}
-
-<div class="btn-group">
-    <a href="/update_status/{{o.id}}/Shipped"
-       class="btn ship">
-       <i class="fa-solid fa-truck"></i>
-       Ship
-    </a>
-</div>
-
-{% elif o.status|lower == "shipped" %}
-
-<div class="btn-group">
-    <a href="/update_status/{{o.id}}/Delivered"
-       class="btn deliver">
-       <i class="fa-solid fa-box"></i>
-       Deliver
-    </a>
-</div>
-
-{% elif o.status|lower == "delivered" %}
-
-<div class="completed">
-    <i class="fa-solid fa-circle-check"></i>
-    Completed
-</div>
-
-{% endif %}
-
-</td>
-</tr>
-
-{% endfor %}
-
-</table>
-
-</div>
 
 <!-- BOTTOM NAV -->
 <div class="bottom-nav">
 
-    <a href="#orders">
+    <a href="provider_orders">
         <i class="fa-solid fa-file-invoice"></i>
         <span>Orders</span>
     </a>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Provider Orders</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f7fbff;
+    padding-bottom:90px;
+}
+
+.hero{
+    background:linear-gradient(135deg,#4facfe,#00f2fe);
+    color:white;
+    text-align:center;
+    padding:50px 20px;
+}
+
+.hero h1{
+    font-size:32px;
+}
+
+.hero p{
+    opacity:.9;
+}
+
+.container{
+    width:95%;
+    margin:25px auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+th{
+    background:#0f172a;
+    color:white;
+    padding:14px;
+    font-size:13px;
+}
+
+td{
+    padding:14px;
+    border-bottom:1px solid #eee;
+    text-align:center;
+}
+
+.status{
+    color:white;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+}
+
+.confirmed{
+    background:#3b82f6;
+}
+
+.shipped{
+    background:#7c3aed;
+}
+
+.delivered{
+    background:#22c55e;
+}
+
+.pending{
+    background:#f59e0b;
+}
+
+.btn-group{
+    display:flex;
+    gap:5px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:7px 10px;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+    font-size:12px;
+}
+
+.confirm{
+    background:#3b82f6;
+}
+
+.ship{
+    background:#7c3aed;
+}
+
+.deliver{
+    background:#22c55e;
+}
+
+.completed{
+    color:#22c55e;
+    font-weight:600;
+}
+
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:70px;
+    background:white;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    box-shadow:0 -5px 20px rgba(0,0,0,.08);
+}
+
+.bottom-nav a{
+    text-decoration:none;
+    color:#64748b;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    font-size:12px;
+}
+
+.bottom-nav a i{
+    font-size:20px;
+    margin-bottom:4px;
+}
+
+.bottom-nav .active{
+    color:#4facfe;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="hero">
+    <h1>Provider Orders</h1>
+    <p>Manage all customer orders</p>
+</div>
+
+<div class="container">
+
+<table>
+
+<tr>
+    <th>Customer</th>
+    <th>Product</th>
+    <th>Qty</th>
+    <th>Status</th>
+    <th>Actions</th>
+</tr>
+
+{% for o in orders %}
+
+<tr>
+
+    <td>{{ o.username }}</td>
+    <td>{{ o.product_name }}</td>
+    <td>{{ o.quantity }}</td>
+
+    <td>
+
+        {% if o.status == "Confirmed" %}
+        <span class="status confirmed">Confirmed</span>
+
+        {% elif o.status == "Shipped" %}
+        <span class="status shipped">Shipped</span>
+
+        {% elif o.status == "Delivered" %}
+        <span class="status delivered">Delivered</span>
+
+        {% else %}
+        <span class="status pending">{{ o.status }}</span>
+        {% endif %}
+
+    </td>
+
+    <td>
+
+        {% if o.status == "Placed (COD)" or o.status == "Paid (Online)" %}
+
+        <div class="btn-group">
+            <a href="/update_status/{{o.id}}/Confirmed"
+               class="btn confirm">
+               Confirm
+            </a>
+        </div>
+
+        {% elif o.status == "Confirmed" %}
+
+        <div class="btn-group">
+            <a href="/update_status/{{o.id}}/Shipped"
+               class="btn ship">
+               Ship
+            </a>
+        </div>
+
+        {% elif o.status == "Shipped" %}
+
+        <div class="btn-group">
+            <a href="/update_status/{{o.id}}/Delivered"
+               class="btn deliver">
+               Deliver
+            </a>
+        </div>
+
+        {% elif o.status == "Delivered" %}
+
+        <div class="completed">
+            ✓ Completed
+        </div>
+
+        {% endif %}
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+<div class="bottom-nav">
+
+    <a href="/provider_dashboard">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </a>
+
+    <a href="/analytics">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Analytics</span>
+    </a>
+
+    <a href="/add_product">
+        <i class="fa-solid fa-circle-plus"></i>
+        <span>Add</span>
+    </a>
+
+    <a href="/reviews">
+        <i class="fa-solid fa-star"></i>
+        <span>Reviews</span>
+    </a>
+
+    <a href="/provider_orders" class="active">
+        <i class="fa-solid fa-file-invoice"></i>
+        <span>Orders</span>
+    </a>
+
+</div>
+
+</body>
+</html>

@@ -545,7 +545,7 @@ def update_status(order_id, status):
 
     flash("Order status updated successfully!", "success")
 
-    return redirect(url_for("provider_dashboard"))
+    return redirect(url_for("provider_orders"))
 # ------------------------
 # SUCCESS
 # ------------------------
@@ -725,7 +725,29 @@ def provider_profile():
         total_products=total_products,
         total_orders=total_orders
     )
-    
+
+@app.route("/provider_orders")
+@login_required
+def provider_orders():
+
+    if session.get("role") != "provider":
+        return redirect("/login")
+
+    products = Product.query.filter_by(
+        provider_email=session["email"]
+    ).all()
+
+    product_ids = [p.id for p in products]
+
+    orders = Order.query.filter(
+        Order.product_id.in_(product_ids)
+    ).order_by(Order.id.desc()).all()
+
+    return render_template(
+        "provider_orders.html",
+        orders=orders
+    )
+
 @app.route('/analytics')
 @login_required
 def analytics():
