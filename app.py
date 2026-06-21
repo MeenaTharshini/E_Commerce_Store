@@ -126,38 +126,32 @@ def provider_dashboard():
     if session.get("role") != "provider":
         return redirect("/login")
 
+    # Provider's products only
     products = Product.query.filter_by(
         provider_email=session['email']
     ).all()
-    orders = Order.query.order_by(Order.id.desc()).all()
+
+    # CREATE product_ids FIRST
+    product_ids = [p.id for p in products]
+
+    # Provider's orders only
+    orders = Order.query.filter(
+        Order.product_id.in_(product_ids)
+    ).order_by(Order.id.desc()).all()
 
     total_products = len(products)
     total_orders = len(orders)
 
-    # FIXED SALES CALCULATION
     total_sales = 0
 
     for o in orders:
-        if o.status != "Delivered":
-            continue
+        if o.status == "Delivered":
+            total_sales += (o.price or 0) * o.quantity
 
-    # IMPORTANT: use stored snapshot if available
-        if hasattr(o, "price") and o.price:
-            total_sales += o.price * o.quantity
-            continue
-
-        product = Product.query.get(o.product_id)
-        if not product:
-            continue
-
-        selling_price = product.price
-
-        if product.discount:
-            selling_price -= (product.price * product.discount / 100)
-
-        total_sales += selling_price * o.quantity
-
-    low_stock = sum(1 for p in products if p.stock_status == "Out of Stock")
+    low_stock = sum(
+        1 for p in products
+        if p.stock_status == "Out of Stock"
+    )
 
     return render_template(
         "provider_dashboard.html",
@@ -168,6 +162,7 @@ def provider_dashboard():
         total_sales=round(total_sales, 2),
         low_stock=low_stock
     )
+
 @app.route('/add_product', methods=['GET', 'POST'])
 @login_required
 def add_product():
@@ -309,7 +304,9 @@ def api_search():
     if not query:
         return {"results": []}
 
-    products = Product.query.all()
+    products = Product.query.filter_by(
+        provider_email=session["email"]
+    ).all()
     results = []
 
     for p in products:
@@ -566,7 +563,7 @@ def success():
 def orders():
 
     orders = Order.query.filter_by(
-        username=session['username']
+        user_id=session["user_id"]
     ).all()
 
     for order in orders:
@@ -680,15 +677,17 @@ def review(order_id):
 @login_required
 def profile():
 
-    user = User.query.filter_by(
-        email=session['email']
-    ).first()
+    user = User.query.get(session['user_id'])
 
     total_orders = Order.query.filter_by(
-        username=session['username']
+        user_id=session['user_id']
     ).count()
 
     total_reviews = Review.query.filter_by(
+        username=session['username']
+    ).count()
+
+    favorites_count = Favorite.query.filter_by(
         username=session['username']
     ).count()
 
@@ -696,7 +695,8 @@ def profile():
         'profile.html',
         user=user,
         total_orders=total_orders,
-        total_reviews=total_reviews
+        total_reviews=total_reviews,
+        favorites_count=favorites_count
     )
 @app.route('/provider_profile')
 @login_required
@@ -772,10 +772,20 @@ def analytics():
 
     avg_rating = round(sum(ratings) / len(ratings), 1) if ratings else 0
 
-    recent_reviews = Order.query.filter(
-        Order.review != None,
+    recent_reviews = Review.query.filter(
+        Review.product_id.in_(product_ids)
+    ).order_by(
+        Review.created_at.desc()
+    ).limit(5).all()
+    products = Product.query.filter_by(
+        provider_email=session['email']
+    ).all()
+
+    product_ids = [p.id for p in products]
+
+    orders = Order.query.filter(
         Order.product_id.in_(product_ids)
-    ).order_by(Order.id.desc()).limit(5).all()
+    ).order_by(Order.id.desc()).all()
 
     return render_template(
         "analytics.html",
@@ -795,15 +805,33 @@ def analytics():
 @login_required
 def reviews():
 
-    reviews = Review.query.order_by(
-        Review.created_at.desc()
-    ).all()
+    # Provider can only see reviews for their products
+    if session.get("role") == "provider":
+
+        provider_products = Product.query.filter_by(
+            provider_email=session["email"]
+        ).all()
+
+        product_ids = [p.id for p in provider_products]
+
+        reviews = Review.query.filter(
+            Review.product_id.in_(product_ids)
+        ).order_by(
+            Review.created_at.desc()
+        ).all()
+
+    else:
+        # User sees only their own reviews
+        reviews = Review.query.filter_by(
+            username=session["username"]
+        ).order_by(
+            Review.created_at.desc()
+        ).all()
 
     return render_template(
         "reviews.html",
         reviews=reviews
     )
-
 @app.route("/settings")
 def settings():
     return render_template("settings.html")
@@ -858,12 +886,13 @@ def payment_single():
     status = "Placed (COD)" if method == "cod" else "Paid (Online)"
 
     db.session.add(Order(
+        user_id=session['user_id'],   # IMPORTANT
         username=session['username'],
         product_id=product.id,
         product_name=product.name,
         image=product.image,
         quantity=data["quantity"],
-        price=selling_price, 
+        price=selling_price,
         payment_method=method,
         status=status
     ))
