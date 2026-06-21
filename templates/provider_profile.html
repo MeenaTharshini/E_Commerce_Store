@@ -5,8 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Seller Profile | Seller Hub</title>
-
+<title>Provider Profile</title>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -21,7 +22,6 @@
 body{
     background:#f7fbff;
     padding-bottom:90px;
-    color:#1e293b;
 }
 
 /* HERO */
@@ -29,12 +29,12 @@ body{
     background:linear-gradient(135deg,#4facfe,#00f2fe);
     color:white;
     text-align:center;
-    padding:55px 20px;
+    padding:60px 20px;
 }
 
 .avatar{
-    width:110px;
-    height:110px;
+    width:100px;
+    height:100px;
     margin:auto;
     border-radius:50%;
     background:white;
@@ -42,9 +42,9 @@ body{
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:48px;
-    font-weight:700;
-    margin-bottom:12px;
+    font-size:40px;
+    font-weight:bold;
+    margin-bottom:10px;
 }
 
 .hero h1{
@@ -52,26 +52,25 @@ body{
 }
 
 .hero p{
-    opacity:0.9;
-    margin-top:6px;
+    opacity:.9;
 }
 
 /* CARD */
 .card{
-    width:92%;
-    max-width:850px;
+    width:90%;
+    max-width:800px;
     margin:25px auto;
     background:white;
-    border-radius:18px;
     padding:25px;
+    border-radius:20px;
     box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
 
 .row{
     display:flex;
     justify-content:space-between;
-    padding:14px 0;
-    border-bottom:1px solid #e2e8f0;
+    padding:12px 0;
+    border-bottom:1px solid #eee;
 }
 
 .label{
@@ -81,47 +80,41 @@ body{
 
 .value{
     color:#0f172a;
-    font-weight:500;
 }
 
 /* STATS */
 .stats{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    grid-template-columns:repeat(2,1fr);
     gap:15px;
     margin-top:20px;
 }
 
 .box{
     background:#f8fafc;
-    padding:18px;
-    border-radius:14px;
+    padding:20px;
+    border-radius:16px;
     text-align:center;
-    transition:0.3s;
-}
-
-.box:hover{
-    transform:translateY(-5px);
 }
 
 .box h2{
     color:#4facfe;
-    font-size:28px;
 }
 
-.box p{
-    color:#64748b;
-    font-size:13px;
+/* BUTTON */
+.logout{
+    display:block;
+    margin-top:20px;
+    text-align:center;
+    padding:12px;
+    background:#ef4444;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+    font-weight:600;
 }
 
-/* ACTION BUTTONS */
-.actions{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
-    gap:12px;
-    margin-top:25px;
-}
-
+/* BOTTOM NAV */
 .bottom-nav{
     position:fixed;
     bottom:0;
@@ -146,9 +139,13 @@ body{
     transition:0.3s;
 }
 
+.bottom-nav a i{
+    font-size:20px;
+    margin-bottom:4px;
+}
+
 .bottom-nav a span{
-    font-size:18px;
-    margin-bottom:2px;
+    font-size:12px;
 }
 
 .bottom-nav a:hover{
@@ -160,121 +157,90 @@ body{
     font-weight:600;
 }
 
-.btn{
-    text-align:center;
-    padding:12px;
-    border-radius:12px;
-    text-decoration:none;
-    color:white;
-    font-weight:600;
-    font-size:14px;
-}
-
-.orders{background:#4facfe;}
-.reviews{background:#7c3aed;}
-.products{background:#16a34a;}
-
-/* LOGOUT */
-.logout{
-    display:block;
-    margin-top:20px;
-    text-align:center;
-    padding:14px;
-    background:#ef4444;
-    color:white;
-    text-decoration:none;
-    border-radius:12px;
-    font-weight:600;
-}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-    .hero h1{font-size:24px;}
-    .row{flex-direction:column;gap:5px;}
-}
-
 </style>
 </head>
 
 <body>
 
-<!-- HERO -->
 <div class="hero">
 
     <div class="avatar">
-        {{ user.fullname[0]|upper }}
+        {{ user.fullname[0] }}
     </div>
 
     <h1>{{ user.fullname }}</h1>
-    <p>Seller Account Dashboard</p>
+    <p>Provider Account</p>
 
 </div>
 
-<!-- PROFILE CARD -->
 <div class="card">
 
-    <div class="row">
-        <span class="label">Email</span>
-        <span class="value">{{ user.email }}</span>
-    </div>
+<h2 style="margin-bottom:20px;">
+    <i class="fa-solid fa-user"></i>
+    Account Information
+</h2>
 
-    <div class="row">
-        <span class="label">Phone</span>
-        <span class="value">{{ user.phone }}</span>
-    </div>
+<div class="row">
+    <span class="label">
+        <i class="fa-solid fa-envelope"></i>
+        Email
+    </span>
 
-    <div class="row">
-        <span class="label">Role</span>
-        <span class="value">{{ user.role }}</span>
-    </div>
-
-    <!-- STATS -->
-    <div class="stats">
-
-        <div class="box">
-            <h2>{{ total_products|default(0) }}</h2>
-            <p>Products</p>
-        </div>
-
-        <div class="box">
-            <h2>{{ total_orders|default(0) }}</h2>
-            <p>Orders</p>
-        </div>
-
-        <div class="box">
-            <h2>{{ total_sales|default(0) }}</h2>
-            <p>Revenue</p>
-        </div>
-
-        <div class="box">
-            <h2>{{ total_reviews|default(0) }}</h2>
-            <p>Reviews</p>
-        </div>
-
-    </div>
-
-    <!-- ACTIONS -->
-    <div class="actions">
-
-        <a href="/provider_dashboard#orders" class="btn orders">Orders</a>
-
-        <a href="/analytics" class="btn reviews">Analytics</a>
-
-        <a href="/add_product" class="btn products">Add Product</a>
-
-    </div>
-
-    <a href="/logout" class="logout">🚪 Logout</a>
-
+    <span class="value">
+        {{ user.email }}
+    </span>
 </div>
 
-<!-- BOTTOM NAV -->
+<div class="row">
+    <span class="label">
+        <i class="fa-solid fa-phone"></i>
+        Phone
+    </span>
+
+    <span class="value">
+        {{ user.phone }}
+    </span>
+</div>
+
+<div class="row">
+    <span class="label">
+        <i class="fa-solid fa-user-tag"></i>
+        Role
+    </span>
+
+    <span class="value">
+        {{ user.role }}
+    </span>
+</div>
+
+</div>
+<!-- FIXED NAV -->
 <div class="bottom-nav">
-    <a href="/provider_dashboard">🏠<span>Home</span></a>
-    <a href="/provider_dashboard#orders">🧾<span>Orders</span></a>
-    <a href="/add_product"><span>➕</span>Add</a>
-    <a href="/analytics">📊<span>Analytics</span></a>
-    <a href="/reviews">⭐<span>Reviews</span></a>
+
+    <a href="/provider_dashboard">
+    <i class="fa-solid fa-house"></i>
+    <span>Home</span>
+</a>
+
+<a href="/analytics">
+    <i class="fa-solid fa-chart-line"></i>
+    <span>Analytics</span>
+</a>
+
+<a href="/add_product">
+    <i class="fa-solid fa-circle-plus"></i>
+    <span>Add</span>
+</a>
+
+<a href="/reviews">
+    <i class="fa-solid fa-star"></i>
+    <span>Reviews</span>
+</a>
+
+<a href="/provider_dashboard/orders">
+    <i class="fa-solid fa-file-invoice"></i>
+    <span>Orders</span>
+</a>
 </div>
 
 </body>

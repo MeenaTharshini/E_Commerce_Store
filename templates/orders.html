@@ -6,7 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SMIS STORES | My Orders</title>
-
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -49,7 +50,6 @@ body{
 }
 
 /* ORDERS CONTAINER */
-
 .orders{
     width:95%;
     max-width:1200px;
@@ -59,46 +59,28 @@ body{
     gap:20px;
 }
 
-/* ORDER CARD */
-
 .order-card{
     background:white;
-    border-radius:20px;
-    padding:18px;
+    border-radius:22px;
+    padding:20px;
     display:flex;
-    gap:18px;
-    align-items:flex-start;
-    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    gap:20px;
+    align-items:center;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
     transition:.3s;
 }
 
 .order-card:hover{
-    transform:translateY(-3px);
-}
-
-/* PRODUCT IMAGE */
-
-.product-link{
-    text-decoration:none;
-    flex-shrink:0;
+    transform:translateY(-4px);
 }
 
 .product-image{
-    width:120px;
-    height:120px;
-    object-fit:contain;
-    background:#f8fafc;
-    border-radius:16px;
-    padding:10px;
+    width:130px;
+    height:130px;
+    object-fit:cover;
+    border-radius:18px;
     border:1px solid #e2e8f0;
-    transition:.3s;
 }
-
-.product-image:hover{
-    transform:scale(1.05);
-}
-
-/* DETAILS */
 
 .order-details{
     flex:1;
@@ -106,22 +88,32 @@ body{
 
 .order-details h3{
     font-size:20px;
-    margin-bottom:10px;
+    margin-bottom:12px;
     color:#0f172a;
 }
 
-.order-details p{
-    margin-bottom:6px;
+.order-meta{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.meta{
     color:#64748b;
     font-size:14px;
 }
 
-/* STATUS */
+.meta i{
+    color:#4facfe;
+    margin-right:6px;
+}
 
 .status{
-    display:inline-block;
-    margin-top:10px;
-    padding:7px 14px;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:8px 16px;
     border-radius:25px;
     font-size:13px;
     font-weight:600;
@@ -129,7 +121,7 @@ body{
 
 .confirmed{
     background:#dbeafe;
-    color:#1d4ed8;
+    color:#2563eb;
 }
 
 .shipped{
@@ -139,7 +131,7 @@ body{
 
 .delivered{
     background:#dcfce7;
-    color:#15803d;
+    color:#16a34a;
 }
 
 .other{
@@ -147,22 +139,19 @@ body{
     color:#d97706;
 }
 
-/* ACTION BUTTONS */
-
 .actions{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
+    display:flex;
     gap:10px;
+    flex-wrap:wrap;
     margin-top:15px;
 }
 
 .action-btn{
     text-decoration:none;
-    text-align:center;
-    padding:10px;
-    border-radius:10px;
     color:white;
-    font-size:14px;
+    padding:10px 16px;
+    border-radius:12px;
+    font-size:13px;
     font-weight:600;
     transition:.3s;
 }
@@ -171,27 +160,17 @@ body{
     transform:translateY(-2px);
 }
 
-.dark{
-    background:#0f172a;
-}
-
-.purple{
-    background:#7c3aed;
-}
-
-.blue{
+.track-btn{
     background:#4facfe;
 }
 
-.green{
+.review-btn{
     background:#16a34a;
 }
 
-/* EMPTY ORDERS */
-
 .empty{
     width:90%;
-    max-width:700px;
+    max-width:650px;
     margin:60px auto;
     background:white;
     padding:60px;
@@ -200,18 +179,16 @@ body{
     box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
 
-.empty h2{
-    margin-bottom:10px;
-}
-
-.empty p{
-    color:#64748b;
+.empty i{
+    font-size:70px;
+    color:#4facfe;
+    margin-bottom:15px;
 }
 
 .shop{
     display:inline-block;
     margin-top:20px;
-    padding:14px 25px;
+    padding:14px 24px;
     border-radius:12px;
     background:linear-gradient(135deg,#4facfe,#00f2fe);
     color:white;
@@ -231,20 +208,12 @@ body{
         font-size:15px;
     }
 
-    .order-card{
-        flex-direction:row;
-        gap:12px;
-        padding:14px;
-    }
 
     .product-image{
         width:90px;
         height:90px;
     }
 
-    .order-details h3{
-        font-size:16px;
-    }
 
     .order-details p{
         font-size:12px;
@@ -300,59 +269,98 @@ body{
 
     <div class="order-card">
 
-        <a href="/product/{{ order.product_id }}" class="product-link">
+    <a href="/product/{{ order.product_id }}" class="product-link">
 
-            {% if order.image %}
-            <img
-            src="{{ url_for('static', filename='uploads/' + order.image) }}"
-            class="product-image">
-            {% else %}
-            <img
-            src="https://picsum.photos/300/300?random={{ order.id }}"
-            class="product-image">
-            {% endif %}
+        {% if order.image %}
+        <img src="{{ url_for('static',
+        filename='uploads/' + order.image) }}"
+        class="product-image">
+        {% else %}
+        <img src="https://picsum.photos/300/300?random={{ order.id }}"
+        class="product-image">
+        {% endif %}
 
-        </a>
+    </a>
 
-        <div class="order-details">
+    <div class="order-details">
 
-            <h3>{{ order.product_name }}</h3>
+        <h3>{{ order.product_name }}</h3>
 
-            <p>Order #{{ order.id }}</p>
+        <div class="order-meta">
 
-            <p>Qty: {{ order.quantity }}</p>
-
-            <p>Payment: {{ order.payment_method }}</p>
-
-            <p>Delivery: {{ order.delivery_date }}</p>
-
-            {% if order.status == "Confirmed" %}
-                <span class="status confirmed">Confirmed</span>
-
-            {% elif order.status == "Shipped" %}
-                <span class="status shipped">Shipped</span>
-
-            {% elif order.status == "Delivered" %}
-                <span class="status delivered">Delivered</span>
-
-            {% else %}
-                <span class="status other">{{ order.status }}</span>
-            {% endif %}
-
-            <div class="actions">
-
-                {% if order.status == "Delivered" %}
-                <a href="/add_review/{{ order.id }}"
-class="action-btn green">
-⭐ Review
-</a>
-                {% endif %}
-
+            <div class="meta">
+                <i class="fa-solid fa-hashtag"></i>
+                Order #{{ order.id }}
             </div>
+
+            <div class="meta">
+                <i class="fa-solid fa-box"></i>
+                Qty: {{ order.quantity }}
+            </div>
+
+            <div class="meta">
+                <i class="fa-solid fa-credit-card"></i>
+                {{ order.payment_method }}
+            </div>
+
+            <div class="meta">
+    <i class="fa-solid fa-calendar"></i>
+
+    {% if order.delivery_date %}
+        {{ order.delivery_date.strftime('%d %b %Y') }}
+    {% else %}
+        Delivery date not available
+    {% endif %}
+</div>
+
+        </div>
+
+        {% if order.status == "Confirmed" %}
+        <span class="status confirmed">
+            <i class="fa-solid fa-circle-check"></i>
+            Confirmed
+        </span>
+
+        {% elif order.status == "Shipped" %}
+        <span class="status shipped">
+            <i class="fa-solid fa-truck"></i>
+            Shipped
+        </span>
+
+        {% elif order.status == "Delivered" %}
+        <span class="status delivered">
+            <i class="fa-solid fa-box-open"></i>
+            Delivered
+        </span>
+
+        {% else %}
+        <span class="status other">
+            <i class="fa-solid fa-clock"></i>
+            {{ order.status }}
+        </span>
+        {% endif %}
+
+        <div class="actions">
+
+            <a href="/product/{{ order.product_id }}"
+               class="action-btn track-btn">
+               <i class="fa-solid fa-eye"></i>
+               View Product
+            </a>
+
+            {% if order.status == "Delivered" %}
+            <a href="/add_review/{{ order.id }}"
+               class="action-btn review-btn">
+               <i class="fa-solid fa-star"></i>
+               Review
+            </a>
+            {% endif %}
 
         </div>
 
     </div>
+
+</div>
 
     {% endfor %}
 
@@ -362,11 +370,14 @@ class="action-btn green">
 
 <div class="empty">
 
-    <h2>📦 No Orders Yet</h2>
+    <i class="fa-solid fa-box-open"></i>
 
-    <p>Looks like you haven't purchased anything.</p>
+    <h2>No Orders Yet</h2>
+
+    <p>Your purchased products will appear here.</p>
 
     <a href="/products" class="shop">
+        <i class="fa-solid fa-store"></i>
         Start Shopping
     </a>
 

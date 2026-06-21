@@ -1,84 +1,144 @@
+
+<link rel="stylesheet"
+
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <!-- Bottom Navigation -->
 <div class="bottom-nav">
 
     <a href="/products"
        class="nav-item {% if request.path == '/products' %}active{% endif %}">
-        <span>🛍️</span>
-        <small>Shop</small>
+        <i class="fa-solid fa-store"></i>
+        <span>Shop</span>
     </a>
 
     <a href="/cart"
        class="nav-item {% if request.path == '/cart' %}active{% endif %}">
-        <span>🛒</span>
-        <small>Cart</small>
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span>Cart</span>
     </a>
 
     <a href="/orders"
        class="nav-item {% if request.path == '/orders' %}active{% endif %}">
-        <span>📦</span>
-        <small>Orders</small>
+        <i class="fa-solid fa-box"></i>
+        <span>Orders</span>
     </a>
 
     <a href="/my_reviews"
        class="nav-item {% if request.path == '/my_reviews' %}active{% endif %}">
-        <span>⭐</span>
-        <small>Reviews</small>
+        <i class="fa-solid fa-star"></i>
+        <span>Reviews</span>
     </a>
 
     <a href="/profile"
        class="nav-item {% if request.path == '/profile' %}active{% endif %}">
-        <span>👤</span>
-        <small>Profile</small>
+        <i class="fa-solid fa-user"></i>
+        <span>Profile</span>
     </a>
 
 </div>
 
 <style>
 
+/* Floating Bottom Navigation */
+
 .bottom-nav{
     position:fixed;
-    bottom:12px;
+    bottom:15px;
     left:50%;
     transform:translateX(-50%);
     width:95%;
-    max-width:550px;
-    height:68px;
-    background:rgba(255,255,255,.95);
-    backdrop-filter:blur(15px);
-    border-radius:22px;
+    max-width:650px;
+    height:75px;
+
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(20px);
+
+    border-radius:24px;
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.12),
+        0 2px 10px rgba(79,172,254,.15);
+
     display:flex;
     justify-content:space-around;
     align-items:center;
-    box-shadow:0 8px 25px rgba(0,0,0,.12);
+
     z-index:9999;
+    border:1px solid rgba(255,255,255,.4);
 }
+
+/* Nav Item */
 
 .nav-item{
     text-decoration:none;
     color:#64748b;
+
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap:2px;
-    font-size:11px;
-    font-weight:600;
-    transition:.3s;
+    justify-content:center;
+
+    gap:4px;
+
+    min-width:65px;
+    height:60px;
+
+    border-radius:18px;
+    transition:.35s ease;
+    position:relative;
 }
+
+/* Icons */
+
+.nav-item i{
+    font-size:20px;
+    transition:.35s;
+}
+
+/* Text */
 
 .nav-item span{
-    font-size:22px;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.3px;
 }
 
-.nav-item:hover,
-.nav-item.active{
+/* Hover */
+
+.nav-item:hover{
     color:#4facfe;
-    transform:translateY(-3px);
+    transform:translateY(-4px);
 }
+
+/* Active */
+
+.nav-item.active{
+    color:white;
+    background:linear-gradient(
+        135deg,
+        #4facfe,
+        #00c6ff
+    );
+
+    box-shadow:0 8px 20px rgba(79,172,254,.35);
+}
+
+.nav-item.active i{
+    transform:scale(1.15);
+}
+
+/* Body Padding */
 
 body{
-    padding-bottom:100px;
+    padding-bottom:110px;
 }
 
+/* Desktop Hide */
+
+@media(min-width:992px){
+    .bottom-nav{
+        max-width:750px;
+    }
+}
 @media(min-width:992px){
     .bottom-nav{
         display:none;

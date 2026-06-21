@@ -44,6 +44,8 @@ class Order(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    
     username = db.Column(db.String(100), nullable=False)
 
     product_id = db.Column(db.Integer, nullable=False)
@@ -55,7 +57,7 @@ class Order(db.Model):
     quantity = db.Column(db.Integer, default=1)
 
     price = db.Column(db.Float)  
-    
+
     payment_method = db.Column(db.String(50))
 
     status = db.Column(db.String(50), default="Pending")

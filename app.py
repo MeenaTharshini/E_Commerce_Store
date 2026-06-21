@@ -96,7 +96,7 @@ def login():
         if user and check_password_hash(user.password, request.form['password']):
 
             session.clear()
-
+            session['user_id'] = user.id
             session['username'] = user.fullname
             session['email'] = user.email
             session['role'] = user.role
@@ -126,7 +126,9 @@ def provider_dashboard():
     if session.get("role") != "provider":
         return redirect("/login")
 
-    products = Product.query.all()
+    products = Product.query.filter_by(
+        provider_email=session['email']
+    ).all()
     orders = Order.query.order_by(Order.id.desc()).all()
 
     total_products = len(products)
@@ -233,15 +235,17 @@ def edit_product(id):
 
     product = Product.query.get_or_404(id)
 
+    # optional security (recommended)
+    if product.provider_email != session.get("email"):
+        return "Unauthorized", 403
+
     if request.method == "POST":
 
+        # UPDATE existing product (NOT create new one)
         product.name = request.form["name"]
         product.description = request.form["description"]
-
         product.price = float(request.form["price"])
-
         product.discount = int(request.form.get("discount", 0))
-
         product.stock_status = request.form["stock_status"]
 
         image = request.files.get("image")
@@ -251,16 +255,12 @@ def edit_product(id):
             image.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
             product.image = filename
 
+        # IMPORTANT: no db.session.add()
         db.session.commit()
-
-        flash("Product updated successfully!")
 
         return redirect("/provider_dashboard")
 
-    return render_template(
-        "edit_product.html",
-        product=product
-    )
+    return render_template("edit_product.html", product=product)
 
 @app.route('/change_stock/<int:id>')
 @login_required
@@ -514,6 +514,7 @@ def payment():
             product = Product.query.get(item["id"])
 
             db.session.add(Order(
+                user_id=session['user_id'],   
                 username=session['username'],
                 product_id=product.id,
                 product_name=product.name,
@@ -697,7 +698,6 @@ def profile():
         total_orders=total_orders,
         total_reviews=total_reviews
     )
-
 @app.route('/provider_profile')
 @login_required
 def provider_profile():
@@ -707,8 +707,17 @@ def provider_profile():
 
     user = User.query.filter_by(email=session['email']).first()
 
-    total_products = Product.query.filter_by(provider_email=session['email']).count()
-    total_orders = Order.query.count()
+    provider_products = Product.query.filter_by(
+        provider_email=session['email']
+    ).all()
+
+    product_ids = [p.id for p in provider_products]
+
+    total_products = len(provider_products)
+
+    total_orders = Order.query.filter(
+        Order.product_id.in_(product_ids)
+    ).count()
 
     return render_template(
         "provider_profile.html",
@@ -721,56 +730,64 @@ def provider_profile():
 @login_required
 def analytics():
 
-    total_products = Product.query.count()
+    if session.get("role") != "provider":
+        return redirect("/login")
 
-    total_orders = Order.query.count()
-
-    total_sales = 0
-
-    orders = Order.query.all()
-
-    for order in orders:
-
-        product = Product.query.get(
-            order.product_id
-        )
-
-        if product:
-            total_sales += (
-                product.price *
-                order.quantity
-            )
-
-    ratings = Order.query.filter(
-        Order.rating != None
+    # STEP 1: get only THIS provider's products
+    products = Product.query.filter_by(
+        provider_email=session['email']
     ).all()
 
-    if ratings:
-        avg_rating = round(
-            sum(r.rating for r in ratings) /
-            len(ratings),
-            1
-        )
-    else:
-        avg_rating = 0
+    product_ids = [p.id for p in products]
+
+    # STEP 2: orders for THIS provider only
+    orders = Order.query.filter(
+        Order.product_id.in_(product_ids)
+    ).all()
+
+    total_products = len(products)
+    total_orders = len(orders)
+
+    total_sales = 0
+    confirmed = shipped = delivered = returned = 0
+
+    ratings = []
+
+    for o in orders:
+
+        if o.status == "Confirmed":
+            confirmed += 1
+        elif o.status == "Shipped":
+            shipped += 1
+        elif o.status == "Delivered":
+            delivered += 1
+        elif o.status == "Returned":
+            returned += 1
+
+        if o.status == "Delivered":
+            total_sales += (o.price or 0) * o.quantity
+
+        if o.rating:
+            ratings.append(o.rating)
+
+    avg_rating = round(sum(ratings) / len(ratings), 1) if ratings else 0
 
     recent_reviews = Order.query.filter(
-        Order.review != None
-    ).order_by(
-        Order.id.desc()
-    ).limit(5).all()
+        Order.review != None,
+        Order.product_id.in_(product_ids)
+    ).order_by(Order.id.desc()).limit(5).all()
 
     return render_template(
-        'analytics.html',
+        "analytics.html",
         total_products=total_products,
         total_orders=total_orders,
-        total_sales=total_sales,
+        total_sales=round(total_sales, 2),
         avg_rating=avg_rating,
         recent_reviews=recent_reviews,
-        confirmed_orders=Order.query.filter_by(status="Confirmed").count(),
-        shipped_orders=Order.query.filter_by(status="Shipped").count(),
-        delivered_orders=Order.query.filter_by(status="Delivered").count(),
-        returned_orders=Order.query.filter_by(status="Returned").count(),
+        confirmed_orders=confirmed,
+        shipped_orders=shipped,
+        delivered_orders=delivered,
+        returned_orders=returned,
         top_products=[]
     )
 

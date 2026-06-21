@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Seller Analytics Dashboard</title>
+<link rel="stylesheet"
+
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -18,28 +21,25 @@ font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#f7fbff;
-padding:25px;
-color:#0f172a;
+    background:#f7fbff;
+    padding-bottom:90px;
 }
 
 /* HERO */
 .hero{
-background:linear-gradient(135deg,#4facfe,#00f2fe);
-color:white;
-padding:40px;
-border-radius:25px;
-margin-bottom:25px;
-box-shadow:0 10px 25px rgba(79,172,254,.3);
+    background:linear-gradient(135deg,#4facfe,#00f2fe);
+    padding:50px 20px;
+    color:white;
+    text-align:center;
 }
 
 .hero h1{
-font-size:36px;
-margin-bottom:8px;
+    font-size:38px;
 }
 
 .hero p{
-opacity:.9;
+    opacity:0.9;
+    margin-top:5px;
 }
 
 /* KPI */
@@ -166,7 +166,6 @@ font-weight:600;
 color:#f59e0b;
 margin-bottom:8px;
 }
-
 .bottom-nav{
     position:fixed;
     bottom:0;
@@ -191,9 +190,13 @@ margin-bottom:8px;
     transition:0.3s;
 }
 
+.bottom-nav a i{
+    font-size:20px;
+    margin-bottom:4px;
+}
+
 .bottom-nav a span{
-    font-size:18px;
-    margin-bottom:2px;
+    font-size:12px;
 }
 
 .bottom-nav a:hover{
@@ -204,6 +207,20 @@ margin-bottom:8px;
     color:#4facfe;
     font-weight:600;
 }
+.icon i{
+    font-size:45px;
+    opacity:0.15;
+}
+
+.section h2 i{
+    color:#4facfe;
+    margin-right:10px;
+}
+
+.stars i{
+    color:#f59e0b;
+    margin-right:2px;
+}
 
 </style>
 </head>
@@ -212,34 +229,41 @@ margin-bottom:8px;
 
 <!-- HERO -->
 <div class="hero">
-<h1>📊 Seller Analytics Dashboard</h1>
-<p>Track sales, orders, products, and customer insights</p>
+<h1>
+    <i class="fa-solid fa-chart-line"></i>
+    Seller Analytics Dashboard
+</h1><p>Track sales, orders, products, and customer insights</p>
 </div>
 
 <!-- KPI CARDS -->
 <div class="cards">
 
 <div class="card revenue">
-<div class="icon">💰</div>
+<div class="icon">
+    <i class="fa-solid fa-indian-rupee-sign"></i>
+</div>
 <h4>Total Revenue</h4>
 <h1>₹ {{ total_sales|default(0) }}</h1>
 </div>
 
 <div class="card orders">
-<div class="icon">📦</div>
-<h4>Total Orders</h4>
+<div class="icon">
+    <i class="fa-solid fa-box"></i>
+</div><h4>Total Orders</h4>
 <h1>{{ total_orders|default(0) }}</h1>
 </div>
 
 <div class="card products">
-<div class="icon">🛍️</div>
-<h4>Total Products</h4>
+<div class="icon">
+    <i class="fa-solid fa-bag-shopping"></i>
+</div><h4>Total Products</h4>
 <h1>{{ total_products|default(0) }}</h1>
 </div>
 
 <div class="card ratings">
-<div class="icon">⭐</div>
-<h4>Average Rating</h4>
+<div class="icon">
+    <i class="fa-solid fa-star"></i>
+</div><h4>Average Rating</h4>
 <h1>{{ avg_rating|default(0) }}/5</h1>
 </div>
 
@@ -248,8 +272,9 @@ margin-bottom:8px;
 <!-- ORDER STATUS -->
 <div class="section">
 
-<h2>📦 Order Status</h2>
-
+<div class="icon">
+    <i class="fa-solid fa-star"></i>
+</div>
 <div class="status-grid">
 
 <div class="status-card">
@@ -279,8 +304,10 @@ margin-bottom:8px;
 <!-- TOP PRODUCTS -->
 <div class="section">
 
-<h2>🔥 Top Products</h2>
-
+<h2>
+    <i class="fa-solid fa-trophy"></i>
+    Top Products
+</h2>
 {% if top_products %}
 
 <div class="status-grid">
@@ -291,9 +318,14 @@ margin-bottom:8px;
 
 <h3>{{ p.name }}</h3>
 
-<p>📦 Orders: <b>{{ p.total_orders }}</b></p>
-<p>💰 Revenue: <b>₹ {{ p.revenue }}</b></p>
-
+<p>
+    <i class="fa-solid fa-box"></i>
+    Orders: <b>{{ p.total_orders }}</b>
+    </p>
+<p>
+    <i class="fa-solid fa-indian-rupee-sign"></i>
+    Revenue: <b>₹ {{ p.revenue }}</b>
+</p>
 </div>
 
 {% endfor %}
@@ -313,8 +345,10 @@ No product sales data yet
 <!-- REVIEWS -->
 <div class="section">
 
-<h2>⭐ Recent Reviews</h2>
-
+<h2>
+    <i class="fa-solid fa-comments"></i>
+    Recent Reviews
+</h2>
 {% if recent_reviews %}
 
 {% for r in recent_reviews %}
@@ -336,7 +370,7 @@ No product sales data yet
 
 <div class="stars">
 {% for i in range(r.rating or 0) %}
-⭐
+<i class="fa-solid fa-star"></i>
 {% endfor %}
 </div>
 
@@ -357,29 +391,29 @@ No reviews yet
 </div>
 <div class="bottom-nav">
 
-    <a href="/provider_dashboard">
-        <span>🏠</span>
-        Home
+    <a href="provider_dashboard">
+        <i class="fa-solid fa-file-invoice"></i>
+        <span>Home</span>
     </a>
 
-    <a href="/provider_dashboard#orders">
-        <span>📃</span>
-        Orders
+    <a href="/provider_dashboard/orders">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Orders</span>
     </a>
 
-    <a href="/add_product" class="active">
-        <span>➕</span>
-        Add
+    <a href="/add_product">
+        <i class="fa-solid fa-circle-plus"></i>
+        <span>Add</span>
     </a>
 
     <a href="/reviews">
-        <span>⭐</span>
-        Reviews
+        <i class="fa-solid fa-star"></i>
+        <span>Reviews</span>
     </a>
 
     <a href="/provider_profile">
-        <span>👤</span>
-        Profile
+        <i class="fa-solid fa-user"></i>
+        <span>Profile</span>
     </a>
 
 </div>

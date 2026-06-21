@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SMIS STORES | My Reviews</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -19,7 +21,8 @@
 }
 
 body{
-    background:#f6f8fc;
+    background:#f7fbff;
+    color:#1e293b;
     padding-bottom:100px;
 }
 
@@ -38,14 +41,14 @@ body{
 }
 
 .header p{
-    font-size:16px;
+    opacity:.9;
 }
 
 /* CONTAINER */
 
 .review-container{
     width:95%;
-    max-width:1000px;
+    max-width:1100px;
     margin:30px auto;
 }
 
@@ -56,25 +59,24 @@ body{
     border-radius:22px;
     padding:20px;
     margin-bottom:20px;
-    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
     transition:.3s;
 }
 
 .review-card:hover{
-    transform:translateY(-3px);
+    transform:translateY(-4px);
 }
 
 .review-top{
     display:flex;
     gap:20px;
-    align-items:flex-start;
 }
 
 /* PRODUCT IMAGE */
 
 .product-image{
-    width:120px;
-    height:120px;
+    width:130px;
+    height:130px;
     object-fit:contain;
     border-radius:16px;
     background:#f8fafc;
@@ -90,9 +92,8 @@ body{
 }
 
 .product-name{
-    font-size:20px;
+    font-size:22px;
     font-weight:600;
-    color:#0f172a;
     margin-bottom:8px;
 }
 
@@ -102,49 +103,70 @@ body{
     margin-bottom:10px;
 }
 
+.review-date i{
+    margin-right:5px;
+}
+
 .rating{
-    font-size:18px;
+    color:#f59e0b;
     margin-bottom:12px;
+}
+
+.rating i{
+    margin-right:2px;
 }
 
 .review-text{
     color:#475569;
     line-height:1.7;
-    font-size:15px;
+    margin-bottom:15px;
 }
 
-/* REVIEW IMAGE */
+/* USER IMAGE */
 
 .user-review-image{
-    width:180px;
-    height:180px;
+    width:200px;
+    height:200px;
     object-fit:cover;
     border-radius:14px;
-    margin-top:15px;
     border:1px solid #e2e8f0;
+    margin-top:10px;
 }
 
 /* BUTTON */
 
 .product-btn{
-    display:inline-block;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
     margin-top:15px;
-    padding:10px 18px;
-    border-radius:10px;
-    text-decoration:none;
+    padding:12px 20px;
+    border-radius:12px;
     background:#4facfe;
     color:white;
+    text-decoration:none;
     font-weight:600;
+    transition:.3s;
+}
+
+.product-btn:hover{
+    transform:translateY(-2px);
 }
 
 /* EMPTY */
 
 .empty{
     background:white;
-    padding:60px;
-    border-radius:20px;
+    padding:60px 20px;
+    border-radius:22px;
     text-align:center;
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.empty-icon{
+    font-size:70px;
+    color:#4facfe;
+    margin-bottom:15px;
 }
 
 .empty h2{
@@ -153,207 +175,32 @@ body{
 
 .empty p{
     color:#64748b;
+    margin-bottom:20px;
+}
+
+.browse-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:#4facfe;
+    color:white;
+    text-decoration:none;
+    padding:12px 22px;
+    border-radius:12px;
+    font-weight:600;
 }
 
 /* MOBILE */
-/* =========================================
-   RESPONSIVE DESIGN
-========================================= */
 
-/* Large Tablets */
-@media (max-width: 992px){
+@media(max-width:768px){
 
-    .orders,
-    .review-container{
-        width:95%;
-    }
-
-    .hero h1,
-    .header h1{
-        font-size:38px;
-    }
-
-    .hero p,
-    .header p{
-        font-size:16px;
-    }
-
-    .order-card,
-    .review-top,
-    .product-preview{
-        gap:15px;
-    }
-}
-
-/* Mobile Devices */
-@media (max-width:768px){
-
-    body{
-        padding-bottom:90px;
-    }
-
-    .hero,
     .header{
         padding:45px 15px;
     }
 
-    .hero h1,
     .header h1{
-        font-size:28px;
+        font-size:30px;
     }
-
-    .hero p,
-    .header p{
-        font-size:14px;
-    }
-
-    .logo{
-        font-size:24px;
-    }
-
-    /* Orders */
-
-    .orders{
-        width:95%;
-        gap:15px;
-    }
-
-    .order-card{
-        flex-direction:column;
-        align-items:center;
-        text-align:center;
-        padding:15px;
-    }
-
-    .product-image{
-        width:100px;
-        height:100px;
-    }
-
-    .order-details{
-        width:100%;
-    }
-
-    .order-details h3{
-        font-size:17px;
-    }
-
-    .order-details p{
-        font-size:13px;
-    }
-
-    .actions{
-        grid-template-columns:1fr;
-    }
-
-    .action-btn{
-        width:100%;
-    }
-
-    /* Reviews */
-
-    .review-top,
-    .product-preview{
-        flex-direction:column;
-        text-align:center;
-    }
-
-    .review-details{
-        width:100%;
-    }
-
-    .product-name{
-        font-size:18px;
-    }
-
-    .user-review-image{
-        width:100%;
-        max-width:250px;
-        height:auto;
-    }
-
-    .review-card,
-    .review-card{
-        padding:15px;
-    }
-
-    /* Forms */
-
-    .review-card form{
-        width:100%;
-    }
-
-    select,
-    textarea,
-    input[type="file"]{
-        font-size:14px;
-    }
-
-    textarea{
-        min-height:120px;
-    }
-
-    .button-group{
-        flex-direction:column;
-    }
-
-    .btn{
-        width:100%;
-    }
-
-    /* Empty State */
-
-    .empty{
-        padding:35px 20px;
-    }
-
-}
-
-/* Small Phones */
-@media (max-width:480px){
-
-    .hero h1,
-    .header h1{
-        font-size:24px;
-    }
-
-    .hero p,
-    .header p{
-        font-size:13px;
-    }
-
-    .product-image{
-        width:85px;
-        height:85px;
-    }
-
-    .product-name{
-        font-size:16px;
-    }
-
-    .order-details h3{
-        font-size:15px;
-    }
-
-    .action-btn{
-        font-size:13px;
-        padding:10px;
-    }
-
-    .status{
-        font-size:11px;
-        padding:6px 12px;
-    }
-
-    .review-text{
-        font-size:14px;
-    }
-
-    .user-review-image{
-        max-width:100%;
-    }
-}
-@media(max-width:768px){
 
     .review-top{
         flex-direction:column;
@@ -372,7 +219,12 @@ body{
 
     .user-review-image{
         width:100%;
+        max-width:250px;
         height:auto;
+    }
+
+    .review-card{
+        padding:15px;
     }
 }
 
@@ -381,10 +233,20 @@ body{
 
 <body>
 
+<!-- HEADER -->
+
 <div class="header">
-    <h1>⭐ My Reviews</h1>
+
+    <h1>
+        <i class="fa-solid fa-star"></i>
+        My Reviews
+    </h1>
+
     <p>All the products you've reviewed</p>
+
 </div>
+
+<!-- REVIEWS -->
 
 <div class="review-container">
 
@@ -395,8 +257,6 @@ body{
     <div class="review-card">
 
         <div class="review-top">
-
-            <!-- PRODUCT IMAGE -->
 
             {% if review.product_image %}
             <img
@@ -415,12 +275,13 @@ body{
                 </div>
 
                 <div class="review-date">
-                    📅 {{ review.created_at }}
+                    <i class="fa-regular fa-calendar"></i>
+                    {{ review.created_at }}
                 </div>
 
                 <div class="rating">
                     {% for i in range(review.rating) %}
-                        ⭐
+                    <i class="fa-solid fa-star"></i>
                     {% endfor %}
                 </div>
 
@@ -436,10 +297,12 @@ body{
 
                 <br>
 
-                <a
-                href="/product/{{ review.product_id }}"
-                class="product-btn">
+                <a href="/product/{{ review.product_id }}"
+                   class="product-btn">
+
+                    <i class="fa-solid fa-eye"></i>
                     View Product
+
                 </a>
 
             </div>
@@ -452,10 +315,24 @@ body{
 
 {% else %}
 
-    <div class="empty">
-        <h2>⭐ No Reviews Yet</h2>
-        <p>You haven't reviewed any products.</p>
-    </div>
+<div class="empty">
+
+    <i class="fa-regular fa-star empty-icon"></i>
+
+    <h2>No Reviews Yet</h2>
+
+    <p>
+        You haven't reviewed any products yet.
+    </p>
+
+    <a href="/products" class="browse-btn">
+
+        <i class="fa-solid fa-store"></i>
+        Browse Products
+
+    </a>
+
+</div>
 
 {% endif %}
 

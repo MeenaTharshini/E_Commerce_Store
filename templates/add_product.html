@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Add Product | Seller Hub</title>
+<link rel="stylesheet"
+
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -195,9 +198,13 @@ textarea{
     transition:0.3s;
 }
 
+.bottom-nav a i{
+    font-size:20px;
+    margin-bottom:4px;
+}
+
 .bottom-nav a span{
-    font-size:18px;
-    margin-bottom:2px;
+    font-size:12px;
 }
 
 .bottom-nav a:hover{
@@ -208,7 +215,6 @@ textarea{
     color:#4facfe;
     font-weight:600;
 }
-
 </style>
 </head>
 
@@ -216,8 +222,8 @@ textarea{
 
 <!-- HERO -->
 <div class="hero">
-    <h1>➕ Add New Product</h1>
-    <p>Create and manage your product listings easily</p>
+    <h1>Add Product</h1>
+    <p>Create and publish a new product listing</p>
 </div>
 
 <div class="container">
@@ -283,28 +289,28 @@ textarea{
 <div class="bottom-nav">
 
     <a href="/provider_dashboard">
-        <span>🏠</span>
-        Home
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
     </a>
 
     <a href="/analytics">
-        <span>📊</span>
-        Stats
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Analytics</span>
     </a>
 
     <a href="/add_product" class="active">
-        <span>➕</span>
-        Add
+        <i class="fa-solid fa-circle-plus"></i>
+        <span>Add</span>
     </a>
 
     <a href="/reviews">
-        <span>⭐</span>
-        Reviews
+        <i class="fa-solid fa-star"></i>
+        <span>Reviews</span>
     </a>
 
     <a href="/provider_profile">
-        <span>👤</span>
-        Profile
+        <i class="fa-solid fa-user"></i>
+        <span>Profile</span>
     </a>
 
 </div>

@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Seller Reviews</title>
-
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -169,6 +170,38 @@ body{
 .bottom-nav a:hover{
     color:#4facfe;
 }
+.hero h1 i{
+    margin-right:10px;
+}
+
+.stars i{
+    color:#f59e0b;
+    margin-right:2px;
+}
+
+.bottom-nav a i{
+    font-size:20px;
+    margin-bottom:4px;
+}
+
+.bottom-nav a span{
+    font-size:12px;
+}
+
+.bottom-nav .active{
+    color:#4facfe;
+    font-weight:600;
+}
+
+.product i{
+    margin-right:5px;
+}
+
+.empty i{
+    font-size:50px;
+    color:#cbd5e1;
+    margin-bottom:15px;
+}
 
 </style>
 </head>
@@ -177,7 +210,10 @@ body{
 
 <!-- HERO -->
 <div class="hero">
-    <h1>⭐ Customer Reviews</h1>
+    <h1>
+        <i class="fa-solid fa-star"></i>
+        Customer Reviews
+    </h1>
     <p>What buyers are saying about your products</p>
 </div>
 
@@ -205,14 +241,15 @@ body{
     </div>
 
     <div class="stars">
-        {% for i in range(r.rating or 0) %}
-        ⭐
-        {% endfor %}
-    </div>
+{% for i in range(r.rating or 0) %}
+<i class="fa-solid fa-star"></i>
+{% endfor %}
+</div>
 
     <div class="product">
-        Product ID: {{ r.product_id }}
-    </div>
+    <i class="fa-solid fa-box"></i>
+    Product ID: {{ r.product_id }}
+</div>
 
     <div class="comment">
         {{ r.comment }}
@@ -232,6 +269,7 @@ body{
 {% else %}
 
 <div class="empty">
+    <i class="fa-solid fa-comments"></i>
     <h2>No Reviews Yet</h2>
     <p>Customer feedback will appear here once orders are completed.</p>
 </div>
@@ -244,28 +282,28 @@ body{
 <div class="bottom-nav">
 
     <a href="/provider_dashboard">
-        <span>🏠</span>
-        Home
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
     </a>
 
-    <a href="/provider_dashboard#orders">
-        <span>📦</span>
-        Orders
+    <a href="/analytics">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Analytics</span>
     </a>
 
     <a href="/add_product">
-        <span>➕</span>
-        Add
+        <i class="fa-solid fa-circle-plus"></i>
+        <span>Add</span>
     </a>
 
-    <a href="/reviews">
-        <span>⭐</span>
-        Reviews
+    <a href="/reviews" class="active">
+        <i class="fa-solid fa-star"></i>
+        <span>Reviews</span>
     </a>
 
-    <a href="/profile">
-        <span>👤</span>
-        Profile
+    <a href="/provider_profile">
+        <i class="fa-solid fa-user"></i>
+        <span>Profile</span>
     </a>
 
 </div>
