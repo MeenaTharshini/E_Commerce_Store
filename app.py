@@ -707,6 +707,10 @@ def provider_profile():
 
     user = User.query.filter_by(email=session['email']).first()
 
+    if not user:
+        flash("User not found in database", "error")
+        return redirect('/login')
+
     provider_products = Product.query.filter_by(
         provider_email=session['email']
     ).all()
