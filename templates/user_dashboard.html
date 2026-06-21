@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>User Dashboard</title>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 *{
     margin:0;
@@ -139,6 +139,34 @@ margin:10px 0;
 .buy:hover{
     background:#15803d;
 }
+.bottom-nav{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #111827;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+.bottom-nav a{
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+    text-align: center;
+}
+
+.bottom-nav i{
+    display: block;
+    font-size: 18px;
+    margin-bottom: 3px;
+}
+
+body{
+    padding-bottom: 70px;
+}
 </style>
 </head>
 
@@ -188,11 +216,31 @@ margin:10px 0;
 
 </div>
 <div class="bottom-nav">
-    <a href="/provider_orders">🏠<span>Orders/span></a>
-    <a href="/analytics">📊<span>Stats</span></a>
-    <a href="/add_product">➕<span>Add</span></a>
-    <a href="/reviews">⭐<span>Reviews</span></a>
-    <a href="/provider_profile">🚪<span>Profile</span></a>
-</div>
+
+    <a href="/provider_orders">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </a>
+
+    <a href="/analytics">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Analytics</span>
+    </a>
+
+    <a href="/add_product" class="active">
+        <i class="fa-solid fa-circle-plus"></i>
+        <span>Add</span>
+    </a>
+
+    <a href="/reviews">
+        <i class="fa-solid fa-star"></i>
+        <span>Reviews</span>
+    </a>
+
+    <a href="/provider_profile">
+        <i class="fa-solid fa-user"></i>
+        <span>Profile</span>
+    </a>
+    </div>
 </body>
 </html>
