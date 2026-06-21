@@ -104,7 +104,7 @@ def login():
             if user.role == "provider":
                 return redirect('/provider_dashboard')
 
-            return redirect('products')
+            return redirect('/products')
 
         return render_template('login.html', error="Invalid email or password")
 
